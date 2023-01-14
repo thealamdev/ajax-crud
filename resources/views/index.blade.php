@@ -50,7 +50,9 @@
                                             data-discount="{{ $product->discount }}">
                                             <i class="las la-edit"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
+                                        <a href="#" class="btn btn-danger delete_btn"
+                                            data-id="{{ $product->id }}"><i class="las la-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -58,6 +60,7 @@
                         </tbody>
 
                     </table>
+                    {!! $products->links() !!}
                 </div>
             </div>
         </div>
@@ -67,7 +70,7 @@
     @include('create')
     @include('update')
     <div class="container">
-        {!! $products->links() !!}
+
     </div>
     <!-- Modal end -->
 
@@ -79,9 +82,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-
         // ajax code :
         $(document).ready(function() {
+
+            //Insert data by ajax:
             $('#product_submit').on('click', function() {
                 $name = $('#name').val();
                 $price = $('#price').val();
@@ -139,17 +143,38 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        if(data.status == 'success'){
+                        if (data.status == 'success') {
                             $('#updateModal').modal('hide')
                             // $('#updateProduct')[0].reset()
-                            $('#dataTable').load(location.href+' .table')
+                            $('#dataTable').load(location.href + ' .table')
                         }
                         console.log(data)
                     }
                 })
             })
 
+            // delete with ajax:
+            $('.delete_btn').on('click', function() {
+                $delete_id = $(this).data('id')
+                if(confirm("Are you sure to delete ?")==true){
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('delete') }}",
+                    dataType: 'json',
+                    data: {
+                        delete_id: $delete_id,
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(data) {
+                        if(data.status == 'success'){
+                            $('#dataTable').load(location.href +' .table')
+                        }
+                    }
 
+                })
+                }
+                
+            })
         })
     </script>
 
