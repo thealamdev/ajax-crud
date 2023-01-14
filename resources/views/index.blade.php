@@ -39,12 +39,22 @@
                         <tbody class="text-center">
                             @foreach ($products as $key => $product)
                             <tr>
-                                <th>{{ $key+1 }}</th>
+                                <th>{{ $product->id }}</th>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->discount }}%</td>
                                 <td>
-                                    <a href="#" class="btn btn-success"><i class="las la-edit"></i></a>
+                                    <a href="#"
+                                     class="btn btn-success update_btn"
+                                     data-bs-toggle="modal"
+                                     data-bs-target="#updateModal"
+                                     data-id = "{{ $product->id }}"
+                                     data-name = "{{ $product->name }}"
+                                     data-price = "{{ $product->price }}"
+                                     data-discount = "{{ $product->discount }}"
+                                     >
+                                     <i class="las la-edit"></i>
+                                    </a>
                                     <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
                                 </td>
                             </tr>  
@@ -60,6 +70,7 @@
 
     <!-- Modal start -->
     @include('create')
+    @include('update')
     <div class="container">
         {!! $products->links() !!}
     </div>
@@ -99,6 +110,28 @@
                     }
                  })
             })
+
+            // update product by ajax:
+            $('.update_btn').on('click',function(){
+                $update_id = $(this).data('id')
+                $update_name = $(this).attr('data-name')
+                $update_price = $(this).data('price')
+                $update_discount = $(this).data('discount')
+
+                $('#update_id').val($update_id)
+                $('#update_name').val($update_name)
+                $('#update_price').val($update_price)
+                $('#update_discount').val($update_discount)
+
+
+                // update process:
+
+                $('#update_product').on('click',function(){
+                
+                })
+            })
+
+         
         })
     </script>
 
