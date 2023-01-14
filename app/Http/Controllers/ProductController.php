@@ -78,9 +78,19 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+
+        Product::where('id',$request->update_id)->update([
+            'name'=> $request->update_name,
+            'price'=>$request->update_price,
+            'discount'=>$request->update_discount,
+        ]);
+         
+        return response()->json([
+            'status'=>'success'
+        ]);
     }
 
     /**

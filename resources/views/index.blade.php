@@ -38,30 +38,25 @@
                         </thead>
                         <tbody class="text-center">
                             @foreach ($products as $key => $product)
-                            <tr>
-                                <th>{{ $product->id }}</th>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->discount }}%</td>
-                                <td>
-                                    <a href="#"
-                                     class="btn btn-success update_btn"
-                                     data-bs-toggle="modal"
-                                     data-bs-target="#updateModal"
-                                     data-id = "{{ $product->id }}"
-                                     data-name = "{{ $product->name }}"
-                                     data-price = "{{ $product->price }}"
-                                     data-discount = "{{ $product->discount }}"
-                                     >
-                                     <i class="las la-edit"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
-                                </td>
-                            </tr>  
+                                <tr>
+                                    <th>{{ $product->id }}</th>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->discount }}%</td>
+                                    <td>
+                                        <a href="#" class="btn btn-success update_btn" data-bs-toggle="modal"
+                                            data-bs-target="#updateModal" data-id="{{ $product->id }}"
+                                            data-name="{{ $product->name }}" data-price="{{ $product->price }}"
+                                            data-discount="{{ $product->discount }}">
+                                            <i class="las la-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
+                                    </td>
+                                </tr>
                             @endforeach
-                     
+
                         </tbody>
-                         
+
                     </table>
                 </div>
             </div>
@@ -79,40 +74,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <script>
-        // ajax code :
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+        integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        $(document).ready(function(){
-            $('#product_submit').on('click',function(){
+    <script>
+
+        // ajax code :
+        $(document).ready(function() {
+            $('#product_submit').on('click', function() {
                 $name = $('#name').val();
                 $price = $('#price').val();
                 $discount = $('#discount').val();
-                 $.ajax({
-                    type:'POST',
-                    url:'{{ route('store') }}',
-                    data:{
-                        name:$name,
-                        price:$price,
-                        discount:$discount,
-                        _token:'{{ csrf_token() }}'
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('store') }}',
+                    data: {
+                        name: $name,
+                        price: $price,
+                        discount: $discount,
+                        _token: '{{ csrf_token() }}'
                     },
-                    dataType:'json',
-                    success:function(data){
-                        if(data.status == 'success'){
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status == 'success') {
                             $('#showModal').modal('hide')
                             $('#addProduct')[0].reset()
-                            $('#dataTable').load(location.href+' .table')
+                            $('#dataTable').load(location.href + ' .table')
 
                         }
                         console.log(data)
                     }
-                 })
+                })
             })
 
             // update product by ajax:
-            $('.update_btn').on('click',function(){
+            $('.update_btn').on('click', function() {
                 $update_id = $(this).data('id')
                 $update_name = $(this).attr('data-name')
                 $update_price = $(this).data('price')
@@ -122,16 +119,37 @@
                 $('#update_name').val($update_name)
                 $('#update_price').val($update_price)
                 $('#update_discount').val($update_discount)
+            })
 
+            // update process:
+            $('#update_product').on('click', function() {
+                $update_id = $('#update_id').val();
+                $update_name = $('#update_name').val();
+                $update_price = $('#update_price').val();
+                $update_discount = $('#update_discount').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('update') }}',
+                    data: {
+                        update_id: $update_id,
+                        update_name: $update_name,
+                        update_price: $update_price,
+                        update_discount: $update_discount,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status == 'success'){
+                            $('#updateModal').modal('hide')
+                            $('#dataTable').load(location.href+' .table')
 
-                // update process:
-
-                $('#update_product').on('click',function(){
-                
+                        }
+                        console.log(data)
+                    }
                 })
             })
 
-         
+
         })
     </script>
 
