@@ -12,16 +12,16 @@
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Product Name*</label>
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" id="name">
                                 <div id="errorText" class="form-text">error</div>
                             </div>
                             <div class="mb-3">
                                 <label for="price" class="form-label">Product Price*</label>
-                                <input type="number" class="form-control" name="price">
+                                <input type="number" class="form-control" name="price" id="price">
                             </div>
                             <div class="mb-3">
-                                <label for="category" class="form-label">Product Category*</label>
-                                <input type="text" class="form-control" name="category">
+                                <label for="discount" class="form-label">Product Discoutn*</label>
+                                <input type="text" class="form-control" name="discount" id="discount">
                             </div>
 
 
@@ -30,7 +30,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" id="product_submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

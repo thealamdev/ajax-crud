@@ -61,6 +61,33 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        // ajax code :
+
+        $(document).ready(function(){
+            $('#product_submit').on('click',function(){
+                $name = $('#name').val();
+                $price = $('#price').val();
+                $discount = $('#discount').val();
+                 $.ajax({
+                    type:'POST',
+                    url:'{{ route('store') }}',
+                    data:{
+                        name:$name,
+                        price:$price,
+                        discount:$discount,
+                        _token:'{{ csrf_token() }}'
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        console.log(data)
+                    }
+                 })
+            })
+        })
+    </script>
 
 
 
