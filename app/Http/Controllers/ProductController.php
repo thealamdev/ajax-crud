@@ -87,6 +87,7 @@ class ProductController extends Controller
             'price'=>$request->update_price,
             'discount'=>$request->update_discount,
         ]);
+
          
         return response()->json([
             'status'=>'success'

@@ -141,8 +141,8 @@
                     success: function(data) {
                         if(data.status == 'success'){
                             $('#updateModal').modal('hide')
+                            // $('#updateProduct')[0].reset()
                             $('#dataTable').load(location.href+' .table')
-
                         }
                         console.log(data)
                     }
