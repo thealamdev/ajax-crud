@@ -25,7 +25,7 @@
                         Add Product
                     </button>
                 </div>
-                <div class="table">
+                <div class="table" id="dataTable">
                     <table class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
@@ -37,17 +37,21 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
+                            @foreach ($products as $key => $product)
                             <tr>
-                                <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <th>{{ $key+1 }}</th>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->discount }}%</td>
                                 <td>
                                     <a href="#" class="btn btn-success"><i class="las la-edit"></i></a>
                                     <a href="#" class="btn btn-danger"><i class="las la-trash"></i></a>
                                 </td>
-                            </tr>
+                            </tr>  
+                            @endforeach
+                     
                         </tbody>
+                         
                     </table>
                 </div>
             </div>
@@ -56,6 +60,9 @@
 
     <!-- Modal start -->
     @include('create')
+    <div class="container">
+        {!! $products->links() !!}
+    </div>
     <!-- Modal end -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -85,6 +92,7 @@
                         if(data.status == 'success'){
                             $('#showModal').modal('hide')
                             $('#addProduct')[0].reset()
+                            $('#dataTable').load(location.href+' .table')
 
                         }
                         console.log(data)
