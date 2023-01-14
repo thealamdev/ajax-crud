@@ -6,6 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="addProduct">
+                @csrf
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">

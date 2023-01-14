@@ -43,7 +43,9 @@ class ProductController extends Controller
         $product->discount = $request->discount;
         $product->save();
 
-        return response()->json($request);
+        return response()->json([
+            'status'=>'success',
+        ]);
     }
 
     /**

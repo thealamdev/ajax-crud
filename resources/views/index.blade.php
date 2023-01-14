@@ -82,6 +82,11 @@
                     },
                     dataType:'json',
                     success:function(data){
+                        if(data.status == 'success'){
+                            $('#showModal').modal('hide')
+                            $('#addProduct')[0].reset()
+
+                        }
                         console.log(data)
                     }
                  })
