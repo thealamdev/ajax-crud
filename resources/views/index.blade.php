@@ -11,7 +11,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <title>Ajax Crud</title>
 </head>
 
@@ -69,6 +69,7 @@
     <!-- Modal start -->
     @include('create')
     @include('update')
+    {!! Toastr::message() !!}
     <div class="container">
 
     </div>
@@ -80,6 +81,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
         integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
     <script>
         // ajax code :
@@ -105,9 +107,28 @@
                             $('#showModal').modal('hide')
                             $('#addProduct')[0].reset()
                             $('#dataTable').load(location.href + ' .table')
+                            Command: toastr["success"]("Product Added Successfully", "Success")
+
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": true,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
 
                         }
-                        console.log(data)
+
                     }
                 })
             })
@@ -145,10 +166,28 @@
                     success: function(data) {
                         if (data.status == 'success') {
                             $('#updateModal').modal('hide')
-                            // $('#updateProduct')[0].reset()
                             $('#dataTable').load(location.href + ' .table')
+                            Command: toastr["success"]("Update successfull !!!", "Update")
+
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": true,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
                         }
-                        console.log(data)
+
                     }
                 })
             })
@@ -156,24 +195,43 @@
             // delete with ajax:
             $('.delete_btn').on('click', function() {
                 $delete_id = $(this).data('id')
-                if(confirm("Are you sure to delete ?")==true){
+                if (confirm("Are you sure to delete ?") == true) {
                     $.ajax({
-                    type: 'POST',
-                    url: "{{ route('delete') }}",
-                    dataType: 'json',
-                    data: {
-                        delete_id: $delete_id,
-                        _token: "{{ csrf_token() }}",
-                    },
-                    success: function(data) {
-                        if(data.status == 'success'){
-                            $('#dataTable').load(location.href +' .table')
-                        }
-                    }
+                        type: 'POST',
+                        url: "{{ route('delete') }}",
+                        dataType: 'json',
+                        data: {
+                            delete_id: $delete_id,
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $('#dataTable').load(location.href + ' .table')
+                                Command: toastr["error"]("Deleted Successful.", "Delete")
 
-                })
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": true,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                }
+                            }
+                        }
+
+                    })
                 }
-                
+
             })
         })
     </script>
