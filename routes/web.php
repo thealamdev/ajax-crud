@@ -10,3 +10,7 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('update','update')->name('update');
     Route::post('delete','destroy')->name('delete');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
