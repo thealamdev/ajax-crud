@@ -18,12 +18,21 @@
 <body>
 
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="register">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-success">Register</a>
+                </div>
+            </div>
+        </div>
         <div class="row mt-5">
             <div class="col-lg-8 m-auto">
                 <div class="table_header my-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showModal">
                         Add Product
                     </button>
+
                 </div>
                 <div class="table" id="dataTable">
                     <table class="table table-bordered table-striped">
@@ -44,13 +53,19 @@
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->discount }}%</td>
                                     <td>
-                                        <a href="#" class="btn btn-success update_btn" data-bs-toggle="modal"
+                                        {{-- <a href="" class="btn btn-success update_btn" data-bs-toggle="modal"
                                             data-bs-target="#updateModal" data-id="{{ $product->id }}"
                                             data-name="{{ $product->name }}" data-price="{{ $product->price }}"
                                             data-discount="{{ $product->discount }}">
                                             <i class="las la-edit"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger delete_btn"
+                                        </a> --}}
+                                        <span class="btn btn-success update_btn" data-bs-toggle="modal"
+                                        data-bs-target="#updateModal" data-id="{{ $product->id }}"
+                                        data-name="{{ $product->name }}" data-price="{{ $product->price }}"
+                                        data-discount="{{ $product->discount }}"> 
+                                        <i class="las la-edit"></i>
+                                     </span>
+                                        <a href="" class="btn btn-danger delete_btn"
                                             data-id="{{ $product->id }}"><i class="las la-trash"></i>
                                         </a>
                                     </td>
