@@ -68,6 +68,7 @@
                                         <a href="" class="btn btn-danger delete_btn"
                                             data-id="{{ $product->id }}"><i class="las la-trash"></i>
                                         </a>
+                                        <a href="{{ route('invoice',$product->id) }}" class="btn btn-primary"><i class="las la-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

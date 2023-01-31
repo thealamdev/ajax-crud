@@ -10,6 +10,8 @@ Route::controller(ProductController::class)->middleware('auth')->group(function(
     Route::post('store','store')->name('store');
     Route::post('update','update')->name('update');
     Route::post('delete','destroy')->name('delete');
+    Route::get('show/{id}','show')->name('show');
+    Route::get('invoice/{id}','invoice')->name('invoice');
 });
 
 Auth::routes(['verify'=>true]);

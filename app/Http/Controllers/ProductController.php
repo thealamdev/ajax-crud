@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ProductController extends Controller
 {
@@ -57,7 +59,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('show',compact('product'));
     }
 
     /**
@@ -107,5 +110,13 @@ class ProductController extends Controller
         return response()->json([
             'status'=>'success'
         ]);
+    }
+
+    public function invoice($id){
+        $product = Product::findOrFail($id);
+        
+        $data = ['product'=> $product];
+        $pdf = Pdf::loadView('show',$data);
+        return $pdf->stream('show'.$product->id.'.pdf');
     }
 }
